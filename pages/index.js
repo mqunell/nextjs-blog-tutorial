@@ -1,9 +1,25 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout, { siteTitle } from '../components/layout';
+import { getSortedPostsData } from '../lib/posts';
 import utilStyles from '../styles/utils.module.css';
 
-export default function Home() {
+/**
+ * Static Generation (SSG):
+ * getStaticProps() runs at build time and only on the server. It can only be
+ * exported from a page file, because React needs the data before the page is
+ * rendered.
+ *
+ * Server-side Rendering (SSR) would use getServerSideProps(context).
+ * Client-side Rendering (CSR) would use a Next.js React hook called SWR.
+ */
+export async function getStaticProps() {
+	const allPostsData = getSortedPostsData();
+
+	return { props: { allPostsData } };
+}
+
+export default function Home({ allPostsData }) {
 	return (
 		<Layout home>
 			<Head>
@@ -19,6 +35,21 @@ export default function Home() {
 				<Link href="posts/first-post">
 					<a>First Post</a>
 				</Link>
+			</section>
+
+			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+				<h2 className={utilStyles.headingLg}>Blog</h2>
+				<ul className={utilStyles.list}>
+					{allPostsData.map(({ id, date, title }) => (
+						<li className={utilStyles.listItem} key={id}>
+							{title}
+							<br />
+							{id}
+							<br />
+							{date}
+						</li>
+					))}
+				</ul>
 			</section>
 		</Layout>
 	);
