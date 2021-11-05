@@ -50,6 +50,13 @@ export default function Home({ allPostsData }) {
 					))}
 				</ul>
 			</section>
+
+			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+				<h2 className={utilStyles.headingLg}>Other Demos</h2>
+				<Link href="api-demo">
+					<a>Client-side Rendering with useSWR and API Route</a>
+				</Link>
+			</section>
 		</Layout>
 	);
 }
