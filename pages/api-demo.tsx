@@ -1,7 +1,7 @@
-import useSWR from 'swr';
+import useSWR, { SWRResponse } from 'swr';
 import Layout from '../components/layout';
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function ApiDemo() {
 	const { data, error } = useSWR('/api/hello', fetcher);

@@ -8,7 +8,13 @@ const name = 'Matt';
 export const siteTitle = 'Next.js Sample Website';
 
 // Common layout and functionality for other components
-export default function Layout({ children, home }) {
+export default function Layout({
+	children,
+	home,
+}: {
+	children: React.ReactNode;
+	home?: boolean;
+}) {
 	return (
 		<div className={styles.container}>
 			<Head>

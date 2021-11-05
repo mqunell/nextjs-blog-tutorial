@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 
 // SSG: Get props for component
 export async function getStaticProps({ params }) {
-	const postData = await getPostData(params.id);
+	const postData = await getPostData(params.id as string);
 
 	return {
 		props: {
@@ -30,7 +30,15 @@ export async function getStaticProps({ params }) {
 	};
 }
 
-export default function Post({ postData }) {
+export default function Post({
+	postData,
+}: {
+	postData: {
+		title: string;
+		date: string;
+		contentHtml: string;
+	};
+}) {
 	return (
 		<Layout>
 			<Head>
